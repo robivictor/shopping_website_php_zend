@@ -1,0 +1,126 @@
+<!-- Shell -->
+<?php session_start();?>
+
+<div class="shell">
+  <!-- Header -->
+  <div id="header">
+    <h1 id="logo"><a href="#">shoparound</a></h1>
+    <!-- Cart -->
+    <div id="cart"> <a href="<?php echo $this->url('shoppingcart',array('action'=>'show'));?>" class="cart-link">Your Shopping Cart</a>
+      <div class="cl">&nbsp;</div>
+      <span>Items: <strong><?php if (isset($_SESSION['cart'])){echo $shoppingcart->getNumberOfItems();} else {echo "0";}?></strong></span> &nbsp;&nbsp;<span>Cost: <strong><?php if (isset($_SESSION['cart'])){echo number_format($shoppingcart->calculateTotals(),2);} else {echo "0.0";}?></strong></span> </div>
+    <!-- End Cart -->
+    <!-- Navigation -->
+    <div id="navigation">
+      <ul>
+        <li><a href="<?php echo $this->url('home',array('action'=>'index'));?>">Home</a></li>
+        <li><a href="<?php echo $this->url('home',array('action'=>'support'));?>">Support</a></li>
+        <li><a href="<?php echo $this->url('home',array('action'=>'myaccount'));?>">My Account</a></li>
+        <li><a href="<?php echo $this->url('home',array('action'=>'thestore'));?>">The Store</a></li>
+        <li><a href="<?php echo $this->url('home',array('action'=>'contact'));?>">Contact</a></li>
+      </ul>
+    </div>
+    <!-- End Navigation -->
+  </div>
+  <!-- End Header -->
+  <!-- Main -->
+  <div id="main">
+    <div class="cl">&nbsp;</div>
+    <!-- Content -->
+    <div id="content">
+      <!-- Products -->
+        
+        <div class="carttable">
+        <div class="cl">&nbsp;</div>
+           <table>
+             <caption>Your Shopping Cart</caption>
+             <tr>
+             <th> Item </th>
+             <th> Quantity </th>
+             <th> Price </th>
+             <th> Subtotal</th>
+             <th> Action </td>
+             </tr>
+             <?php if (isset($_SESSION['cart'])){ 
+             foreach($_SESSION['cart'] as $item) { ?>
+             <tr>
+             <td><?php echo $item['name']; ?> </td>
+             <td><?php echo $item['number']; ?></td>
+             <td><?php echo $item['price']; ?> </td>
+             <td><?php echo $item['price']; ?></td>
+             <script>
+             </script>
+             <td><a href="<?php  echo $this->url('shoppingcart',array('action'=>'remove', 'id'=>$item['id']));?>">Remove</a></td>
+             </tr>    
+             <?php }}?> 
+             <tr>
+             <td></td>
+             <td></td>
+             <td>Total</td> 
+             <td><?php if(isset($_SESSION['cart'])){echo number_format($shoppingcart->calculateTotals(),2);} else {echo "0.0";}?></td>
+             </tr>    
+             </table>
+             <div class="cl">&nbsp;</div>
+<a href="<?php  echo $this->url('shoppingcart',array('action'=>'initexp'));?>"> Express Checkout </a>
+<a href="<?php  echo $this->url('shoppingcart',array('action'=>'creditcard'));?>"> Direct Checkout </a><br/>
+
+<div>
+<img src="https://www.paypal.com/en_US/i/logo/PayPal_mark_37x23.gif" align="left" style="margin-right:7px;"><span style="font-size:11px; font-family: Arial, Verdana;">The safer, easier way to pay.</span><br/>
+ <div class="cl">&nbsp;</div>
+<a href="http://www.credit-card-logos.com"><img alt="" title="" src="http://www.credit-card-logos.com/images/visa_mastercard_credit-card-logos/mc_vs_accpt_h_023_gif.gif" width="75" height="23" border="0" /></a>
+</div>
+        <div class="cl">&nbsp;</div>
+        </div>
+      <!-- End Products -->
+    </div>
+    <!-- End Content -->
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <!-- Search -->
+      <div class="box search">
+        <h2>Search by <span></span></h2>
+<?php
+echo "<div class='inline-field'>";
+$form->setAttribute('action', $this->url('home', array('action' => 'search')));
+$form->prepare();
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('category'))."<br/>";
+echo $this->formRow($form->get('startprice'));echo $this->formRow($form->get('endprice'));
+echo "</div>";
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+?>
+    </div>
+      <!-- End Search -->
+      <!-- Categories -->
+      <div class="box categories">
+        <h2>Categories <span></span></h2>
+        <div class="box-content">
+          <ul>
+             <?php $len = count($categories);$counter=1; ?>
+             <?php foreach($categories as $category):?>
+              <li<?php if($counter==$len) echo " class=\"last\"";?>><a href="<?php echo $this->url('categorypage',array('action'=>'index')); ?>"><?php echo $category->category_display;?></a></li>
+            <?php $counter++;?>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      </div>
+      <!-- End Categories -->
+    </div>
+    <!-- End Sidebar -->
+    <div class="cl">&nbsp;</div>
+  </div>
+  <!-- End Main -->
+  <!-- Side Full -->
+  <div class="side-full">
+
+  </div>
+  <!-- End Side Full -->
+  <!-- Footer -->
+  <div id="footer">
+    <p class="left"> <a href="<?php echo $this->url('home',array('action'=>'index'));?>">Home</a> <span>|</span> <a href="<?php echo $this->url('home',array('action'=>'support'));?>">Support</a> <span>|</span> <a href="<?php echo $this->url('home',array('action'=>'myaccount'));?>">My Account</a> <span>|</span> <a href="<?php echo $this->url('home',array('action'=>'thestore'));?>">The Store</a> <span>|</span> <a href="<?php echo $this->url('home',array('action'=>'contact'));?>">Contact</a> </p>
+    <p class="right"> &copy; 2010 Shop Around. Design by <a href="http://chocotemplates.com">Chocotemplates.com</a> </p>
+  </div>
+  <!-- End Footer -->
+</div>
+<!-- End Shell -->

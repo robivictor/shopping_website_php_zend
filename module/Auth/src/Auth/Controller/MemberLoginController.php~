@@ -1,0 +1,30 @@
+<?php
+namespace MemberLogin\Controller; 
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Form\Annotation\AnnotationBuilder;
+use Zend\View\Model\ViewModel; 
+use MemberLogin\Model\Member;
+ 
+class MemberLoginController extends AbstractActionController
+{
+    protected $form;
+    protected $storage;
+    protected $authservice;
+     
+    public function indexAction(){
+      
+
+    }
+
+    public function loginAction(){
+
+
+    }
+     
+    public function logoutAction()
+    {
+        
+    }
+}
+
+?>

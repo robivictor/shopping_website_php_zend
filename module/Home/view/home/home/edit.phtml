@@ -1,0 +1,27 @@
+<?php
+$title = 'Edit home';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form->setAttribute('action', $this->url('home', 
+                      array(
+                            'action' => 'edit',
+                            'id'     => $this->id,
+                             )
+                       ));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('type'))."<br />";
+echo $this->formRow($form->get('title'))."<br />";
+echo $this->formRow($form->get('description1'))."<br />";
+echo $this->formRow($form->get('description2'))."<br />";
+echo $this->formRow($form->get('price'))."<br />";
+echo $this->formRow($form->get('photo_url'))."<br />";
+echo $this->formRow($form->get('alt_text'))."<br />";
+echo $this->formRow($form->get('item_id'))."<br />";
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+?>

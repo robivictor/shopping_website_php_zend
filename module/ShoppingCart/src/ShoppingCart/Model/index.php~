@@ -1,0 +1,57 @@
+<?php
+
+use ShoppingCart\Model\Paypal;
+
+  $products = array(
+	array(
+		"name" =>"Prodoct Name 1",
+		"price" => 10.00,
+		"priceTVA" => 12.00,
+		"count" => 1
+	),
+	array(
+		"name" => "Product Name 2",
+		"price" => 10.00,
+		"priceTVA" => 12.00,
+		"count" => 2
+	)
+ );
+ $total = 30.00;
+ $totalttc = 36.00;
+ $port = 10.00;	             
+ $paypal = new Paypal();
+
+ $params = array(
+			"RETURNURL" => "http://localhost/process.php",
+			"CANCELURL" => "http://localhost/cancel.php",
+			"PAYMENTREQUEST_0_AMT" => $totalttc + $port,
+			"PAYMENTREQUEST_0_CURRENCYCODE" => "NZD",
+			"PAYMENTREQUEST_0_SHIPPINGAMT"  => $port,
+			"PAYMENTREQUEST_0_ITEMAMT"      => $totalttc,
+ );
+
+ foreach($products as  $k => $product){
+	$params["L_PAYMENTREQUEST_0_NAME$k"] = $product["name"];
+	$params["L_PAYMENTREQUEST_0_DESC$k"] = "";
+      $params["L_PAYMENTREQUEST_0_AMT$k"]  = $product["priceTVA"];
+   	$params["L_PAYMENTREQUEST_0_QTY$k"]  = $product["count"];
+ }
+
+
+ $response = $paypal->request("SetExpressCheckout",$params);
+ 
+ if($response){ 
+ 	$paypal = "https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&useraction=commit&token=".$response["TOKEN"];
+ }
+ else{
+	var_dump($response->errors());
+	die("Error");
+ }
+echo $paypal;
+?>
+<html>
+<body>
+<a href="<?php echo $paypal;?>">link</a>
+</body>
+</html>
+

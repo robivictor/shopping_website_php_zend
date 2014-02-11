@@ -1,0 +1,31 @@
+<?php
+$title = 'Edit Product Page Item';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form->setAttribute('action', $this->url('productpage', 
+                      array(
+                            'action' => 'edit',
+                            'id'     => $this->id,
+                             )
+                       ));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('product_id'))."<br />";
+echo $this->formRow($form->get('category'))."<br />";
+echo $this->formRow($form->get('product_name'))."<br />";
+echo $this->formRow($form->get('description1'))."<br />";
+echo $this->formRow($form->get('description2'))."<br />";
+echo $this->formRow($form->get('price'))."<br />";
+echo $this->formRow($form->get('size'))."<br />";
+echo $this->formRow($form->get('colors'))."<br />";
+echo $this->formRow($form->get('photo1_url'))."<br />";
+echo $this->formRow($form->get('photo2_url'))."<br />";
+echo $this->formRow($form->get('photo3_url'))."<br />";
+echo $this->formRow($form->get('photo4_url'))."<br />";
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+?>

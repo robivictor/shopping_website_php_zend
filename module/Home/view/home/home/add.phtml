@@ -1,0 +1,26 @@
+<?php
+$title = 'Add new home page item';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form->setAttribute('action', $this->url('home', array('action' => 'add')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('type'))."<br />";
+echo $this->formRow($form->get('title'))."<br />";
+echo $this->formRow($form->get('description1'))."<br />";
+echo $this->formRow($form->get('description2'))."<br />";
+echo $this->formRow($form->get('price'))."<br />";
+$fileElement1 = $form->get('photo_url'); 
+echo $this->formLabel($fileElement1); 
+echo $this->formFile($fileElement1); 
+echo $this->formElementErrors($fileElement1); 
+echo $this->formRow($form->get('alt_text'))."<br />";
+echo $this->formRow($form->get('item_id'))."<br />";
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+?>
+                          

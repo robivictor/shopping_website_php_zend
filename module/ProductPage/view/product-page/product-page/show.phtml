@@ -1,0 +1,159 @@
+<!-- Shell -->
+<?php session_start();?>
+<div class="shell">
+  <!-- Header -->
+  <div id="header">
+    <h1 id="logo"><a href="#">shoparound</a></h1>
+    <!-- Cart -->
+    <div id="cart"> <a href="#" class="cart-link">Your Shopping Cart</a>
+      <div class="cl">&nbsp;</div>
+      <span>Articles: <strong>4</strong></span> &nbsp;&nbsp; <span>Cost: <strong>$250.99</strong></span> </div>
+    <!-- End Cart -->
+    <!-- Navigation -->
+    <div id="navigation">
+      <ul>
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">Support</a></li>
+        <li><a href="#">My Account</a></li>
+        <li><a href="#">The Store</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <!-- End Navigation -->
+  </div>
+  <!-- End Header -->
+  <!-- Main -->
+  <div id="main">
+    <div class="cl">&nbsp;</div>
+    <!-- Content -->
+    <div id="content">
+      <!-- Products -->
+        <div class="carttable">
+        <div class="cl">&nbsp;</div>
+        <form "checkout.php" method="post">
+           <table>
+             <caption>Your Shopping Cart</caption>
+             <tr>
+             <th> Item </th>
+             <th> Quantity </th>
+             <th> Price </th>
+             <th> Subtotal</th>
+             <th> Action </td>
+             </tr>
+             <?php foreach($_SESSION['cart'] as $item) { ?>
+             <tr>
+             <td><?php echo $item['name']; ?> </td>
+             <td><input type="text" name="productnumber" size="2" value="<?php echo $item['number'];?>"></td>
+             <td><?php echo $item['price']; ?> </td>
+             <td><?php echo $item['number']*$item['price'];?></td>
+             <td><a href="">Update</a></td>
+             </tr>    
+             <?php }?>     
+           </table>
+            <input type="submit" value=" Go to checkout >">
+        </form>
+
+        <div class="cl">&nbsp;</div>
+        </div>
+      <!-- End Products -->
+    </div>
+    <!-- End Content -->
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <!-- Search -->
+      <div class="box search">
+        <h2>Search by <span></span></h2>
+        <div class="box-content">
+          <form action="#" method="post">
+            <label>Keyword</label>
+            <input type="text" class="field" />
+            <label>Category</label>
+            <select class="field">
+              <option value="">-- Select Category --</option>
+            </select>
+            <div class="inline-field">
+              <label>Price</label>
+              <select class="field small-field">
+                <option value="">$10</option>
+              </select>
+              <label>to:</label>
+              <select class="field small-field">
+                <option value="">$50</option>
+              </select>
+            </div>
+            <input type="submit" class="search-submit" value="Search" />
+            <p> <a href="#" class="bul">Advanced search</a><br />
+              <a href="#" class="bul">Contact Customer Support</a> </p>
+          </form>
+        </div>
+      </div>
+      <!-- End Search -->
+      <!-- Categories -->
+      <div class="box categories">
+        <h2>Categories <span></span></h2>
+        <div class="box-content">
+          <ul>
+             <?php $len = count($categories);$counter=1; ?>
+             <?php foreach($categories as $category):?>
+              <li<?php if($counter==$len) echo " class=\"last\"";?>><a href="<?php echo $this->url('categorypage',array('action'=>'index')); ?>"><?php echo $category->title;?></a></li>
+            <?php $counter++;?>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      </div>
+      <!-- End Categories -->
+    </div>
+    <!-- End Sidebar -->
+    <div class="cl">&nbsp;</div>
+  </div>
+  <!-- End Main -->
+  <!-- Side Full -->
+  <div class="side-full">
+    <!-- More Products -->
+    <div class="more-products">
+      <div class="more-products-holder">
+      <ul>
+        <?php foreach($bottom_products as $bottom_product): ?>
+           <li><a href="<?php echo $bottom_product->link_url; ?>"><img src="/img/small1.jpg" alt="<?php echo $bottom_product->alt_text; ?>"/></a></li>
+       <?php endforeach;?>
+      </ul>
+      </div>
+      <div class="more-nav"> <a href="#" class="prev">previous</a> <a href="#" class="next">next</a> </div>
+    </div>
+    <!-- End More Products -->
+    <!-- Text Cols -->
+    <div class="cols">
+      <div class="cl">&nbsp;</div>
+      <div class="col">
+        <h3 class="ico ico1">Donec imperdiet</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet, metus ac cursus auctor, arcu felis ornare dui.</p>
+        <p class="more"><a href="#" class="bul">Lorem ipsum</a></p>
+      </div>
+      <div class="col">
+        <h3 class="ico ico2">Donec imperdiet</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet, metus ac cursus auctor, arcu felis ornare dui.</p>
+        <p class="more"><a href="#" class="bul">Lorem ipsum</a></p>
+      </div>
+      <div class="col">
+        <h3 class="ico ico3">Donec imperdiet</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet, metus ac cursus auctor, arcu felis ornare dui.</p>
+        <p class="more"><a href="#" class="bul">Lorem ipsum</a></p>
+      </div>
+      <div class="col col-last">
+        <h3 class="ico ico4">Donec imperdiet</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet, metus ac cursus auctor, arcu felis ornare dui.</p>
+        <p class="more"><a href="#" class="bul">Lorem ipsum</a></p>
+      </div>
+      <div class="cl">&nbsp;</div>
+    </div>
+    <!-- End Text Cols -->
+  </div>
+  <!-- End Side Full -->
+  <!-- Footer -->
+  <div id="footer">
+    <p class="left"> <a href="#">Home</a> <span>|</span> <a href="#">Support</a> <span>|</span> <a href="#">My Account</a> <span>|</span> <a href="#">The Store</a> <span>|</span> <a href="#">Contact</a> </p>
+    <p class="right"> &copy; 2010 Shop Around. Design by <a href="http://chocotemplates.com">Chocotemplates.com</a> </p>
+  </div>
+  <!-- End Footer -->
+</div>
+<!-- End Shell -->

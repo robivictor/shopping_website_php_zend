@@ -1,0 +1,399 @@
+<?php
+
+namespace ShoppingCart\Entity;
+ 
+use Doctrine\ORM\Mapping as ORM;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
+
+/**
+* @ORM\Entity
+* @ORM\Table(name="credit_cards")
+* @property string $card_type
+* @property string $acct
+* @property string $expmonth
+* @property string $expyear
+* @property string $cvv2
+* @property string $first_name
+* @property string $last_name
+* @property string $street
+* @property string $city
+* @property string $state
+* @property string $country
+* @property string $zip
+*/
+ 
+class CreditCard implements InputFilterAwareInterface
+{
+
+protected $inputFiter;
+
+/**
+* @ORM\Id
+* @ORM\Column(type="integer");
+* @ORM\GeneratedValue(strategy="AUTO")
+*/
+protected $id;
+/**
+* @ORM\Column(type="string");
+*/
+protected $card_type;
+/**
+* @ORM\Column(type="string");
+*/
+protected $acct;
+/**
+* @ORM\Column(type="string");
+*/
+protected $expmonth;
+/**
+* @ORM\Column(type="string");
+*/
+protected $expyear;
+/**
+* @ORM\Column(type="string");
+*/
+protected $cvv2;
+/**
+* @ORM\Column(type="string");
+*/
+protected $first_name;
+/**
+* @ORM\Column(type="string");
+*/
+protected $last_name;
+/**
+* @ORM\Column(type="string");
+*/
+protected $street;
+/**
+* @ORM\Column(type="string");
+*/
+protected $city;
+/**
+* @ORM\Column(type="string");
+*/
+protected $state;
+/**
+* @ORM\Column(type="string");
+*/
+protected $country;
+/**
+* @ORM\Column(type="string");
+*/
+protected $zip;
+
+   public function __get($property)
+   {
+     return $this->$property;
+   }
+ 
+   public function __set($property, $value)
+   {
+     $this->$property = $value;
+   }
+ 
+   public function getArrayCopy()
+   {
+      return get_object_vars($this);
+   }
+ 
+   public function populate($data = array())
+   {
+      $this->id = $data['id'];
+      $this->card_type = $data['card_type'];
+      $this->acct = $data['acct'];
+      $this->expmonth = $data['expmonth'];
+	$this->expyear = $data['expyear'];
+      $this->cvv2 = $data['cvv2'];
+      $this->first_name = $data['first_name'];
+      $this->last_name = $data['last_name'];
+      $this->street = $data['street'];
+      $this->city = $data['city'];
+      $this->state = $data['state'];
+      $this->country = $data['country'];
+      $this->zip = $data['zip'];
+   }
+ 
+   public function setInputFilter(InputFilterInterface $inputFilter)
+   {
+      throw new \Exception("Not used");
+   }
+ 
+   public function getInputFilter()
+   {
+      if (!$this->inputFilter) 
+      {
+         $inputFilter = new InputFilter();
+         $factory = new InputFactory();
+ 
+         $inputFilter->add($factory->createInput(array(
+             'name' => 'id',
+             'required' => true,
+             'filters' => array(
+             array(
+                 'name' => 'Int'),
+             ),
+          )));
+ 
+         $inputFilter->add($factory->createInput(array(
+             'name' => 'card_type',
+             'required' => true,
+             'filters' => array(
+                 array(
+                    'name' => 'StripTags'),
+                 array('name' => 
+                    'StringTrim'),
+             ),
+             'validators' => array(
+                 array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 20,
+                    ),
+                ),
+            ),
+         )));
+
+         $inputFilter->add($factory->createInput(array(
+             'name' => 'acct',
+             'required' => true,
+             'filters' => array(
+                 array(
+                    'name' => 'StripTags'),
+                 array('name' => 
+                    'StringTrim'),
+             ),
+             'validators' => array(
+                 array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 20,
+                    ),
+                ),
+            ),
+         )));
+
+         $inputFilter->add($factory->createInput(array(
+             'name' => 'expmonth',
+             'required' => false,
+             'filters' => array(
+                 array(
+                    'name' => 'StripTags'),
+                 array('name' => 
+                    'StringTrim'),
+             ),
+             'validators' => array(
+                 array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 2,
+                        'max' => 2,
+                    ),
+                ),
+            ),
+         )));
+
+         $inputFilter->add($factory->createInput(array(
+             'name' => 'expyear',
+             'required' => false,
+             'filters' => array(
+                 array(
+                    'name' => 'StripTags'),
+                 array('name' => 
+                    'StringTrim'),
+             ),
+             'validators' => array(
+                 array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 4,
+                        'max' => 4,
+                    ),
+                ),
+            ),
+         )));
+
+
+         $inputFilter->add($factory->createInput(array(
+             'name' => 'cvv2',
+             'required' => true,
+             'filters' => array(
+                 array(
+                    'name' => 'StripTags'),
+                 array('name' => 
+                    'StringTrim'),
+             ),
+             'validators' => array(
+                 array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 3,
+                        'max' => 3,
+                    ),
+                ),
+            ),
+         )));
+
+         $inputFilter->add($factory->createInput(array(
+             'name' => 'first_name',
+             'required' => true,
+             'filters' => array(
+                 array(
+                    'name' => 'StripTags'),
+                 array('name' => 
+                    'StringTrim'),
+             ),
+             'validators' => array(
+                 array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 40,
+                    ),
+                ),
+            ),
+         )));
+
+         $inputFilter->add($factory->createInput(array(
+             'name' => 'last_name',
+             'required' => true,
+             'filters' => array(
+                 array(
+                    'name' => 'StripTags'),
+                 array('name' => 
+                    'StringTrim'),
+             ),
+             'validators' => array(
+                 array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 40,
+                    ),
+                ),
+            ),
+         )));
+
+         $inputFilter->add($factory->createInput(array(
+             'name' => 'street',
+             'required' => true,
+             'filters' => array(
+                 array(
+                    'name' => 'StripTags'),
+                 array('name' => 
+                    'StringTrim'),
+             ),
+             'validators' => array(
+                 array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 100,
+                    ),
+                ),
+            ),
+         )));
+
+         $inputFilter->add($factory->createInput(array(
+             'name' => 'city',
+             'required' => true,
+             'filters' => array(
+                 array(
+                    'name' => 'StripTags'),
+                 array('name' => 
+                    'StringTrim'),
+             ),
+             'validators' => array(
+                 array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 40,
+                    ),
+                ),
+            ),
+         )));
+
+         $inputFilter->add($factory->createInput(array(
+             'name' => 'state',
+             'required' => false,
+             'filters' => array(
+                 array(
+                    'name' => 'StripTags'),
+                 array('name' => 
+                    'StringTrim'),
+             ),
+             'validators' => array(
+                 array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 40,
+                    ),
+                ),
+            ),
+         )));
+
+         $inputFilter->add($factory->createInput(array(
+             'name' => 'country',
+             'required' => true,
+             'filters' => array(
+                 array(
+                    'name' => 'StripTags'),
+                 array('name' => 
+                    'StringTrim'),
+             ),
+             'validators' => array(
+                 array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 40,
+                    ),
+                ),
+            ),
+         )));
+
+         $inputFilter->add($factory->createInput(array(
+             'name' => 'zip',
+             'required' => true,
+             'filters' => array(
+                 array(
+                    'name' => 'StripTags'),
+                 array('name' => 
+                    'StringTrim'),
+             ),
+             'validators' => array(
+                 array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 1,
+                        'max' => 10,
+                    ),
+                ),
+            ),
+         )));
+
+       $this->inputFilter = $inputFilter;
+      }
+    return $this->inputFilter;
+  }
+}
+?>

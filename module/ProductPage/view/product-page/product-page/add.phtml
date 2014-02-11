@@ -1,0 +1,40 @@
+<?php
+$title = 'Add new Product Page Item';
+$this->headTitle($title);
+?>
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form->setAttribute('action', $this->url('productpage', array('action' => 'add')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('category'))."<br />";
+echo $this->formRow($form->get('product_name'))."<br />";
+echo $this->formRow($form->get('description1'))."<br />";
+echo $this->formRow($form->get('description2'))."<br />";
+echo $this->formRow($form->get('price'))."<br />";
+echo $this->formRow($form->get('size'))."<br />";
+echo $this->formRow($form->get('colors'))."<br />";
+
+$fileElement1 = $form->get('photo1_url'); 
+echo $this->formLabel($fileElement1); 
+echo $this->formFile($fileElement1); 
+echo $this->formElementErrors($fileElement1); 
+$fileElement2 = $form->get('photo2_url'); 
+echo $this->formLabel($fileElement2); 
+echo $this->formFile($fileElement2); 
+echo $this->formElementErrors($fileElement2); 
+$fileElement3 = $form->get('photo3_url'); 
+echo $this->formLabel($fileElement3); 
+echo $this->formFile($fileElement3); 
+echo $this->formElementErrors($fileElement3); 
+$fileElement4 = $form->get('photo4_url'); 
+echo $this->formLabel($fileElement4); 
+echo $this->formFile($fileElement4); 
+echo $this->formElementErrors($fileElement4); 
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+?>
+                       
