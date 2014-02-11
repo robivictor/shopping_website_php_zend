@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 Online Shopping Website by ZEND 2
 ======================
 Introduction
